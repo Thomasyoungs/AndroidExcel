@@ -12,10 +12,10 @@ class DataInfo {
     var isBegin = false
 
     enum class Status {
-        CHECK_IN, REVERSE, BLANK;
+         BLUE_TEXT, COMMON;
 
         companion object {
-            private val VALUES = Collections.unmodifiableList(Arrays.asList(*values()))
+            private val VALUES = Collections.unmodifiableList(listOf(*values()))
             private val SIZE = VALUES.size
             private val RANDOM = Random()
             fun randomStatus(): Status {

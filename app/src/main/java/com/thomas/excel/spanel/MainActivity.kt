@@ -72,37 +72,37 @@ class MainActivity : AppCompatActivity() {
             val name = DataInfo()
             name.guestName = "暴力心$i"
             name.isBegin = true
-            name.status = DataInfo.Status.BLANK
+            name.status = DataInfo.Status.COMMON
             dataInfoList.add(name)
             //环号
             val ringNum = DataInfo()
             ringNum.guestName = "2023-03-01111$i"
             ringNum.isBegin = true
-            ringNum.status = DataInfo.Status.REVERSE
+            ringNum.status = DataInfo.Status.BLUE_TEXT
             dataInfoList.add(ringNum)
             //羽色
             val feather = DataInfo()
             feather.guestName = featherList[i % featherList.size]
             feather.isBegin = true
-            feather.status = DataInfo.Status.BLANK
+            feather.status = DataInfo.Status.COMMON
             dataInfoList.add(feather)
             //分速
             val sudu = DataInfo()
             sudu.guestName = (1382.123 + i).toString()
             sudu.isBegin = true
-            sudu.status = DataInfo.Status.BLANK
+            sudu.status = DataInfo.Status.COMMON
             dataInfoList.add(sudu)
             //归巢日期
             val time = DataInfo()
             time.guestName = "2023-10-10 00:00:00.000"
             time.isBegin = true
-            time.status = DataInfo.Status.BLANK
+            time.status = DataInfo.Status.COMMON
             dataInfoList.add(time)
             //地区
             val area = DataInfo()
             area.guestName = "唐山"
             area.isBegin = true
-            area.status = DataInfo.Status.BLANK
+            area.status = DataInfo.Status.COMMON
             dataInfoList.add(time)
             ordersList.add(dataInfoList)
         }

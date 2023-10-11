@@ -25,9 +25,9 @@ class ExcelSpanelAdapter() : PanelAdapter() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, row: Int, column: Int) {
         val viewType = getItemViewType(row, column)
         when (viewType) {
-            DATE_TYPE -> setDateView(column, holder as DateViewHolder)
-            ROOM_TYPE -> setRoomView(row, holder as RoomViewHolder)
-            ORDER_TYPE -> setOrderView(row, column, holder as OrderViewHolder)
+            HORIZONTAL_TYPE -> setDateView(column, holder as DateViewHolder)
+            VERTICAL_TYPE -> setRoomView(row, holder as RoomViewHolder)
+            DATA_TYPE -> setOrderView(row, column, holder as OrderViewHolder)
             TITLE_TYPE -> {}
             else -> setOrderView(row, column, holder as OrderViewHolder)
         }
@@ -38,28 +38,28 @@ class ExcelSpanelAdapter() : PanelAdapter() {
             return TITLE_TYPE
         }
         if (column == 0) {
-            return ROOM_TYPE
+            return VERTICAL_TYPE
         }
         return if (row == 0) {
-            DATE_TYPE
-        } else ORDER_TYPE
+            HORIZONTAL_TYPE
+        } else DATA_TYPE
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder? {
         when (viewType) {
-            DATE_TYPE -> return DateViewHolder(
+            HORIZONTAL_TYPE -> return DateViewHolder(
                 LayoutInflater.from(
                     parent!!.context
                 )
                     .inflate(R.layout.listitem_horizontal_axis_info, parent, false)
             )
-            ROOM_TYPE -> return RoomViewHolder(
+            VERTICAL_TYPE -> return RoomViewHolder(
                 LayoutInflater.from(
                     parent!!.context
                 )
                     .inflate(R.layout.listitem_vertical_axis_info, parent, false)
             )
-            ORDER_TYPE -> return OrderViewHolder(
+            DATA_TYPE -> return OrderViewHolder(
                 LayoutInflater.from(
                     parent!!.context
                 )
@@ -96,11 +96,11 @@ class ExcelSpanelAdapter() : PanelAdapter() {
 
     private fun setOrderView(row: Int, column: Int, viewHolder: OrderViewHolder) {
         val dataInfo = ordersList[row - 1][column - 1]
-        if (dataInfo.status === DataInfo.Status.BLANK) {
+        if (dataInfo.status === DataInfo.Status.COMMON) {
             viewHolder.view.setBackgroundResource(R.drawable.bg_white_gray_stroke)
             viewHolder.nameTextView.text = dataInfo.guestName
             viewHolder.nameTextView.setTextColor(Color.parseColor("#000000"))
-        } else if (dataInfo.status === DataInfo.Status.REVERSE) {
+        } else if (dataInfo.status === DataInfo.Status.BLUE_TEXT) {
             viewHolder.nameTextView.text = dataInfo.guestName
             viewHolder.nameTextView.setTextColor(Color.parseColor("#0000ff"))
         }
@@ -154,8 +154,8 @@ class ExcelSpanelAdapter() : PanelAdapter() {
 
     companion object {
         private const val TITLE_TYPE = 4
-        private const val ROOM_TYPE = 0
-        private const val DATE_TYPE = 1
-        private const val ORDER_TYPE = 2
+        private const val VERTICAL_TYPE = 0
+        private const val HORIZONTAL_TYPE = 1
+        private const val DATA_TYPE = 2
     }
 }

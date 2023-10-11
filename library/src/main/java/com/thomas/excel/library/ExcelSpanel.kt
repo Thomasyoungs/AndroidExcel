@@ -1,5 +1,6 @@
 package com.thomas.excel.library
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -74,6 +75,7 @@ class ExcelSpanel : FrameLayout {
     /**
      * @param panelAdapter [PanelAdapter]
      */
+    @SuppressLint("NotifyDataSetChanged")
     fun setPanelAdapter(panelAdapter: PanelAdapter?) {
         if (panelLineAdapter != null) {
             panelLineAdapter!!.setPanelAdapter(panelAdapter)
@@ -195,6 +197,7 @@ class ExcelSpanel : FrameLayout {
             }
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         fun initRecyclerView(recyclerView: RecyclerView?) {
             recyclerView!!.setHasFixedSize(true)
             val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
@@ -241,7 +244,7 @@ class ExcelSpanel : FrameLayout {
         }
 
         private val recyclerViews: HashSet<RecyclerView?>
-            private get() {
+            get() {
                 val recyclerViewHashSet = HashSet<RecyclerView?>()
                 recyclerViewHashSet.add(headerRecyclerView)
                 for (i in 0 until contentRV!!.childCount) {
