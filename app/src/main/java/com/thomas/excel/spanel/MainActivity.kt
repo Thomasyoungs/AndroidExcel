@@ -3,9 +3,14 @@ package com.thomas.excel.spanel
 import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter
+import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.thomas.excel.library.ExcelSpanel
+import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,26 +23,40 @@ class MainActivity : AppCompatActivity() {
         return super.getResources()
     }
 
+    private var excelSpanelAdapter: ExcelSpanelAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val excelSpanel = findViewById<View>(R.id.scrollable_panel) as ExcelSpanel
-        val excelSpanelAdapter = ExcelSpanelAdapter()
-        generateTestData(excelSpanelAdapter)
+        excelSpanelAdapter = ExcelSpanelAdapter()
+        currentPage = 1
+        generateTestData()
         excelSpanel.setPanelAdapter(excelSpanelAdapter)
+        smartRefreshLayout.setRefreshHeader(ClassicsHeader(this))
+        smartRefreshLayout.setOnRefreshListener {
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    currentPage = 1
+                    generateTestData()
+                    smartRefreshLayout.finishRefresh()
+                }, 1000
+            )
+        }
+        smartRefreshLayout.setRefreshFooter(ClassicsFooter(this))
+        smartRefreshLayout.setOnLoadMoreListener {
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    currentPage++
+                    generateTestData()
+                    smartRefreshLayout.finishLoadMore()
+                }, 1000
+            )
+
+        }
     }
 
+    private var currentPage = 1
     private val featherList = arrayOf("灰", "黑色", "黑白花", "黑点白")
-    private fun generateTestData(excelSpanelAdapter: ExcelSpanelAdapter) {
-        val verticalAxisInfoList: MutableList<VerticalAxisInfo> = ArrayList()
-        for (i in 0..99) {
-            val verticalAxisInfo = VerticalAxisInfo()
-            verticalAxisInfo.roomType = ""
-            verticalAxisInfo.roomId = i.toLong()
-            verticalAxisInfo.roomName = "" + i
-            verticalAxisInfoList.add(verticalAxisInfo)
-        }
-        excelSpanelAdapter.setRoomInfoList(verticalAxisInfoList)
+    private fun generateTestData() {
         val horizontalAxisInfoList: MutableList<HorizontalAxisInfo> = ArrayList()
         val horizontalAxisInfo = HorizontalAxisInfo()
         horizontalAxisInfo.date = "参赛名"
@@ -63,9 +82,18 @@ class MainActivity : AppCompatActivity() {
         horizontalAxisInfo5.date = "地区"
         horizontalAxisInfo5.week = ""
         horizontalAxisInfoList.add(horizontalAxisInfo5)
-        excelSpanelAdapter.setDateInfoList(horizontalAxisInfoList)
+        excelSpanelAdapter?.setDateInfoList(horizontalAxisInfoList)
+        val verticalAxisInfoList: MutableList<VerticalAxisInfo> = ArrayList()
+        for (i in 0..currentPage * 20) {
+            val verticalAxisInfo = VerticalAxisInfo()
+            verticalAxisInfo.roomType = ""
+            verticalAxisInfo.roomId = i.toLong()
+            verticalAxisInfo.roomName = "" + i
+            verticalAxisInfoList.add(verticalAxisInfo)
+        }
+        excelSpanelAdapter?.setRoomInfoList(verticalAxisInfoList)
         val ordersList: MutableList<List<DataInfo>> = ArrayList()
-        for (i in 0..99) {
+        for (i in 0..currentPage * 20) {
             val dataInfoList: MutableList<DataInfo> = ArrayList()
             //横坐标数据
             //参赛名
@@ -106,7 +134,8 @@ class MainActivity : AppCompatActivity() {
             dataInfoList.add(time)
             ordersList.add(dataInfoList)
         }
-        excelSpanelAdapter.setOrdersList(ordersList)
+        excelSpanelAdapter?.setOrdersList(ordersList)
+        excelSpanel.notifyDataSetChanged()
     }
 
     companion object {

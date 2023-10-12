@@ -3,8 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.thomas.excel.library.ExcelSpanel
-        android:id="@+id/scrollable_panel"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
+
+        <com.thomas.excel.library.ExcelSpanel
+            android:id="@+id/excelSpanel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </FrameLayout>
