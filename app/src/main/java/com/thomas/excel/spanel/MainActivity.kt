@@ -5,11 +5,9 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.thomas.excel.library.ExcelSpanel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -55,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var currentPage = 1
+    private val PAGE_SIZE = 20
     private val featherList = arrayOf("灰", "黑色", "黑白花", "黑点白")
     private fun generateTestData() {
         val horizontalAxisInfoList: MutableList<HorizontalAxisInfo> = ArrayList()
@@ -84,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         horizontalAxisInfoList.add(horizontalAxisInfo5)
         excelSpanelAdapter?.setDateInfoList(horizontalAxisInfoList)
         val verticalAxisInfoList: MutableList<VerticalAxisInfo> = ArrayList()
-        for (i in 0..currentPage * 20) {
+        for (i in 0..currentPage * PAGE_SIZE) {
             val verticalAxisInfo = VerticalAxisInfo()
             verticalAxisInfo.roomType = ""
             verticalAxisInfo.roomId = i.toLong()
@@ -93,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         }
         excelSpanelAdapter?.setRoomInfoList(verticalAxisInfoList)
         val ordersList: MutableList<List<DataInfo>> = ArrayList()
-        for (i in 0..currentPage * 20) {
+        for (i in 0..currentPage * PAGE_SIZE) {
             val dataInfoList: MutableList<DataInfo> = ArrayList()
             //横坐标数据
             //参赛名
@@ -104,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             dataInfoList.add(name)
             //环号
             val ringNum = DataInfo()
-            ringNum.guestName = "2023-03-01111$i"
+            ringNum.guestName = "2023-03-011$i"
             ringNum.isBegin = true
             ringNum.status = DataInfo.Status.BLUE_TEXT
             dataInfoList.add(ringNum)
@@ -115,11 +114,11 @@ class MainActivity : AppCompatActivity() {
             feather.status = DataInfo.Status.COMMON
             dataInfoList.add(feather)
             //分速
-            val sudu = DataInfo()
-            sudu.guestName = (1382.123 + i).toString()
-            sudu.isBegin = true
-            sudu.status = DataInfo.Status.COMMON
-            dataInfoList.add(sudu)
+            val speed = DataInfo()
+            speed.guestName = (1382.123 + i).toString()
+            speed.isBegin = true
+            speed.status = DataInfo.Status.COMMON
+            dataInfoList.add(speed)
             //归巢日期
             val time = DataInfo()
             time.guestName = "2023-10-10 00:00:00.000"
