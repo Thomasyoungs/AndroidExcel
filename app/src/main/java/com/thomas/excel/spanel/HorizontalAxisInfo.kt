@@ -5,5 +5,5 @@ package com.thomas.excel.spanel
  */
 class HorizontalAxisInfo {
     var date: String? = null
-    var week: String? = null
+    var width: Int? = null
 }

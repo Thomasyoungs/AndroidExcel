@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/guest_layout"
+    android:id="@+id/contentLayout"
     android:layout_height="50dp"
     android:background="@drawable/bg_item"
     android:clickable="true"
@@ -10,7 +10,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/guest_name"
+        android:id="@+id/contentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"

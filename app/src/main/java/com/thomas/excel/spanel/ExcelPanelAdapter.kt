@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.thomas.excel.library.PanelAdapter
 
@@ -19,16 +21,16 @@ class ExcelPanelAdapter() : PanelAdapter() {
         get() = verticalAxisInfoList.size + 1
 
     override val columnCount: Int
-        get() = horizontalAxisInfoList.size
+        get() = horizontalAxisInfoList.size + 1
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, row: Int, column: Int) {
         when (getItemViewType(row, column)) {
             HORIZONTAL_TYPE -> setHorizontalAxisView(column, holder as HorizontalAxisViewHolder)
             VERTICAL_TYPE -> setVerticalAxisView(row, holder as VerticalAxisViewHolder)
-            DATA_TYPE -> setOrderView(row, column, holder as OrderViewHolder)
+            DATA_TYPE -> setDataView(row, column, holder as OrderViewHolder)
             TITLE_TYPE -> {}
-            else -> setOrderView(row, column, holder as OrderViewHolder)
+            else -> setDataView(row, column, holder as OrderViewHolder)
         }
     }
 
@@ -77,50 +79,62 @@ class ExcelPanelAdapter() : PanelAdapter() {
     private fun setHorizontalAxisView(pos: Int, viewHolder: HorizontalAxisViewHolder) {
         val horizontalAxisInfo = horizontalAxisInfoList[pos - 1]
         if (pos > 0) {
-            viewHolder.dateTextView.text = horizontalAxisInfo.date
+            viewHolder.titleTextView.text = horizontalAxisInfo.date
+//            horizontalAxisInfo.width?.let {
+//                viewHolder.itemView.updateLayoutParams {
+//                    width = it
+//                }
+//            }
+
         }
     }
 
     private fun setVerticalAxisView(pos: Int, viewHolder: VerticalAxisViewHolder) {
         val verticalAxisInfo = verticalAxisInfoList[pos - 1]
         if (pos > 0) {
-            viewHolder.roomTypeTextView.text = verticalAxisInfo.roomType
-            viewHolder.roomNameTextView.text = verticalAxisInfo.roomName
+            viewHolder.verticalTitleTextView.text = verticalAxisInfo.roomType
+            viewHolder.verticalNameTextView.text = verticalAxisInfo.roomName
         }
     }
 
-    private fun setOrderView(row: Int, column: Int, viewHolder: OrderViewHolder) {
+    private fun setDataView(row: Int, column: Int, viewHolder: OrderViewHolder) {
         val dataInfo = ordersList[row - 1][column - 1]
+        viewHolder.nameTextView.text = dataInfo.guestName
+        viewHolder.view.setBackgroundResource(R.drawable.bg_white_gray_stroke)
+//        dataInfo.width?.let {
+//            viewHolder.itemView.updateLayoutParams {
+//                width = it
+//            }
+//        }
+
         if (dataInfo.status === DataInfo.Status.COMMON) {
-            viewHolder.view.setBackgroundResource(R.drawable.bg_white_gray_stroke)
-            viewHolder.nameTextView.text = dataInfo.guestName
             viewHolder.nameTextView.setTextColor(Color.parseColor("#000000"))
+
         } else if (dataInfo.status === DataInfo.Status.BLUE_TEXT) {
-            viewHolder.nameTextView.text = dataInfo.guestName
             viewHolder.nameTextView.setTextColor(Color.parseColor("#0000ff"))
         }
     }
 
     private class HorizontalAxisViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var dateTextView: TextView
+        var titleTextView: TextView
 
         init {
-            dateTextView = itemView.findViewById<View>(R.id.date) as TextView
+            titleTextView = itemView.findViewById<View>(R.id.horizontal_title) as TextView
         }
     }
 
     private class VerticalAxisViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var roomTypeTextView: TextView
-        var roomNameTextView: TextView
+        var verticalTitleTextView: TextView
+        var verticalNameTextView: TextView
 
         init {
-            roomTypeTextView = view.findViewById<View>(R.id.room_type) as TextView
-            roomNameTextView = view.findViewById<View>(R.id.room_name) as TextView
+            verticalTitleTextView = view.findViewById<View>(R.id.vertical_axis_type) as TextView
+            verticalNameTextView = view.findViewById<View>(R.id.vertical_name) as TextView
         }
     }
 
     private class OrderViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
-        var nameTextView: TextView = view.findViewById<View>(R.id.guest_name) as TextView
+        var nameTextView: TextView = view.findViewById<View>(R.id.contentTitle) as TextView
 
     }
 
@@ -145,9 +159,9 @@ class ExcelPanelAdapter() : PanelAdapter() {
     }
 
     companion object {
-        private const val TITLE_TYPE = 4
         private const val VERTICAL_TYPE = 0
         private const val HORIZONTAL_TYPE = 1
         private const val DATA_TYPE = 2
+        private const val TITLE_TYPE = 4
     }
 }

@@ -10,9 +10,10 @@ class DataInfo {
     var guestName: String? = null
     var status: Status? = null
     var isBegin = false
+    var width: Int? = null
 
     enum class Status {
-         BLUE_TEXT, COMMON;
+        BLUE_TEXT, COMMON;
 
         companion object {
             private val VALUES = Collections.unmodifiableList(listOf(*values()))
