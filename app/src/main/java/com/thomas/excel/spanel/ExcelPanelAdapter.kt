@@ -11,7 +11,7 @@ import com.thomas.excel.library.PanelAdapter
 /**
  * created by yangzhikuan on 23-10-10 .
  */
-class ExcelSpanelAdapter() : PanelAdapter() {
+class ExcelPanelAdapter() : PanelAdapter() {
     private var verticalAxisInfoList: List<VerticalAxisInfo> = ArrayList()
     private var horizontalAxisInfoList: List<HorizontalAxisInfo> = ArrayList()
     private var ordersList: List<List<DataInfo>> = ArrayList()
@@ -23,10 +23,9 @@ class ExcelSpanelAdapter() : PanelAdapter() {
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, row: Int, column: Int) {
-        val viewType = getItemViewType(row, column)
-        when (viewType) {
-            HORIZONTAL_TYPE -> setDateView(column, holder as DateViewHolder)
-            VERTICAL_TYPE -> setRoomView(row, holder as RoomViewHolder)
+        when (getItemViewType(row, column)) {
+            HORIZONTAL_TYPE -> setHorizontalAxisView(column, holder as HorizontalAxisViewHolder)
+            VERTICAL_TYPE -> setVerticalAxisView(row, holder as VerticalAxisViewHolder)
             DATA_TYPE -> setOrderView(row, column, holder as OrderViewHolder)
             TITLE_TYPE -> {}
             else -> setOrderView(row, column, holder as OrderViewHolder)
@@ -47,29 +46,25 @@ class ExcelSpanelAdapter() : PanelAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder? {
         when (viewType) {
-            HORIZONTAL_TYPE -> return DateViewHolder(
+            HORIZONTAL_TYPE -> return HorizontalAxisViewHolder(
                 LayoutInflater.from(
                     parent!!.context
-                )
-                    .inflate(R.layout.listitem_horizontal_axis_info, parent, false)
+                ).inflate(R.layout.listitem_horizontal_axis_info, parent, false)
             )
-            VERTICAL_TYPE -> return RoomViewHolder(
+            VERTICAL_TYPE -> return VerticalAxisViewHolder(
                 LayoutInflater.from(
                     parent!!.context
-                )
-                    .inflate(R.layout.listitem_vertical_axis_info, parent, false)
+                ).inflate(R.layout.listitem_vertical_axis_info, parent, false)
             )
             DATA_TYPE -> return OrderViewHolder(
                 LayoutInflater.from(
                     parent!!.context
-                )
-                    .inflate(R.layout.listitem_content_info, parent, false)
+                ).inflate(R.layout.listitem_content_info, parent, false)
             )
             TITLE_TYPE -> return TitleViewHolder(
                 LayoutInflater.from(
                     parent!!.context
-                )
-                    .inflate(R.layout.listitem_title, parent, false)
+                ).inflate(R.layout.listitem_title, parent, false)
             )
             else -> {}
         }
@@ -79,14 +74,14 @@ class ExcelSpanelAdapter() : PanelAdapter() {
         )
     }
 
-    private fun setDateView(pos: Int, viewHolder: DateViewHolder) {
+    private fun setHorizontalAxisView(pos: Int, viewHolder: HorizontalAxisViewHolder) {
         val horizontalAxisInfo = horizontalAxisInfoList[pos - 1]
         if (pos > 0) {
             viewHolder.dateTextView.text = horizontalAxisInfo.date
         }
     }
 
-    private fun setRoomView(pos: Int, viewHolder: RoomViewHolder) {
+    private fun setVerticalAxisView(pos: Int, viewHolder: VerticalAxisViewHolder) {
         val verticalAxisInfo = verticalAxisInfoList[pos - 1]
         if (pos > 0) {
             viewHolder.roomTypeTextView.text = verticalAxisInfo.roomType
@@ -106,7 +101,7 @@ class ExcelSpanelAdapter() : PanelAdapter() {
         }
     }
 
-    private class DateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private class HorizontalAxisViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var dateTextView: TextView
 
         init {
@@ -114,7 +109,7 @@ class ExcelSpanelAdapter() : PanelAdapter() {
         }
     }
 
-    private class RoomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private class VerticalAxisViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var roomTypeTextView: TextView
         var roomNameTextView: TextView
 
@@ -125,11 +120,8 @@ class ExcelSpanelAdapter() : PanelAdapter() {
     }
 
     private class OrderViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
-        var nameTextView: TextView
+        var nameTextView: TextView = view.findViewById<View>(R.id.guest_name) as TextView
 
-        init {
-            nameTextView = view.findViewById<View>(R.id.guest_name) as TextView
-        }
     }
 
     private class TitleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -140,11 +132,11 @@ class ExcelSpanelAdapter() : PanelAdapter() {
         }
     }
 
-    fun setRoomInfoList(verticalAxisInfoList: List<VerticalAxisInfo>) {
+    fun setVerticalAxisInfoList(verticalAxisInfoList: List<VerticalAxisInfo>) {
         this.verticalAxisInfoList = verticalAxisInfoList
     }
 
-    fun setDateInfoList(horizontalAxisInfoList: List<HorizontalAxisInfo>) {
+    fun setHorizontalAxisInfoList(horizontalAxisInfoList: List<HorizontalAxisInfo>) {
         this.horizontalAxisInfoList = horizontalAxisInfoList
     }
 

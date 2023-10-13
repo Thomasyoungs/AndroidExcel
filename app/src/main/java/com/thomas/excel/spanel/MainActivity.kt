@@ -21,14 +21,14 @@ class MainActivity : AppCompatActivity() {
         return super.getResources()
     }
 
-    private var excelSpanelAdapter: ExcelSpanelAdapter? = null
+    private var excelPanelAdapter: ExcelPanelAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        excelSpanelAdapter = ExcelSpanelAdapter()
+        excelPanelAdapter = ExcelPanelAdapter()
         currentPage = 1
         generateTestData()
-        excelSpanel.setPanelAdapter(excelSpanelAdapter)
+        excelSpanel.setPanelAdapter(excelPanelAdapter)
         smartRefreshLayout.setRefreshHeader(ClassicsHeader(this))
         smartRefreshLayout.setOnRefreshListener {
             Handler(Looper.getMainLooper()).postDelayed(
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         horizontalAxisInfo5.date = "地区"
         horizontalAxisInfo5.week = ""
         horizontalAxisInfoList.add(horizontalAxisInfo5)
-        excelSpanelAdapter?.setDateInfoList(horizontalAxisInfoList)
+        excelPanelAdapter?.setHorizontalAxisInfoList(horizontalAxisInfoList)
         val verticalAxisInfoList: MutableList<VerticalAxisInfo> = ArrayList()
         for (i in 0..currentPage * PAGE_SIZE) {
             val verticalAxisInfo = VerticalAxisInfo()
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             verticalAxisInfo.roomName = "" + i
             verticalAxisInfoList.add(verticalAxisInfo)
         }
-        excelSpanelAdapter?.setRoomInfoList(verticalAxisInfoList)
+        excelPanelAdapter?.setVerticalAxisInfoList(verticalAxisInfoList)
         val ordersList: MutableList<List<DataInfo>> = ArrayList()
         for (i in 0..currentPage * PAGE_SIZE) {
             val dataInfoList: MutableList<DataInfo> = ArrayList()
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
             dataInfoList.add(time)
             ordersList.add(dataInfoList)
         }
-        excelSpanelAdapter?.setOrdersList(ordersList)
+        excelPanelAdapter?.setOrdersList(ordersList)
         excelSpanel.notifyDataSetChanged()
     }
 
