@@ -1,4 +1,4 @@
-package com.thomas.excel.spanel
+package com.thomas.excel.panel
 
 import android.content.Context
 import android.content.res.Resources
@@ -8,12 +8,11 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.scwang.smartrefresh.layout.util.DesignUtil
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_common_excel_pannel.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class ScoreActivity : AppCompatActivity() {
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(newBase)
     }
@@ -25,8 +24,8 @@ class MainActivity : AppCompatActivity() {
     private var excelPanelAdapter: ExcelPanelAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        excelPanelAdapter = ExcelPanelAdapter()
+        setContentView(R.layout.activity_common_excel_pannel)
+        excelPanelAdapter = ExcelPanelAdapter("名次")
         currentPage = 1
         generateTestData()
         excelPanel.setPanelAdapter(excelPanelAdapter)

@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.thomas.excel.spanel"
+        applicationId "com.thomas.excel.panel"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

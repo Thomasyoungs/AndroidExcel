@@ -1,22 +1,21 @@
-package com.thomas.excel.spanel
+package com.thomas.excel.panel
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.thomas.excel.library.PanelAdapter
 
 /**
  * created by yangzhikuan on 23-10-10 .
  */
-class ExcelPanelAdapter() : PanelAdapter() {
+class ExcelPanelAdapter(private var title: String? = null) : PanelAdapter() {
     private var verticalAxisInfoList: List<VerticalAxisInfo> = ArrayList()
     private var horizontalAxisInfoList: List<HorizontalAxisInfo> = ArrayList()
     private var ordersList: List<List<DataInfo>> = ArrayList()
+
     override val rowCount: Int
         get() = verticalAxisInfoList.size + 1
 
@@ -29,7 +28,7 @@ class ExcelPanelAdapter() : PanelAdapter() {
             HORIZONTAL_TYPE -> setHorizontalAxisView(column, holder as HorizontalAxisViewHolder)
             VERTICAL_TYPE -> setVerticalAxisView(row, holder as VerticalAxisViewHolder)
             DATA_TYPE -> setDataView(row, column, holder as OrderViewHolder)
-            TITLE_TYPE -> {}
+            TITLE_TYPE -> setTitleView(holder as TitleViewHolder)
             else -> setDataView(row, column, holder as OrderViewHolder)
         }
     }
@@ -97,6 +96,10 @@ class ExcelPanelAdapter() : PanelAdapter() {
         }
     }
 
+    private fun setTitleView(viewHolder: TitleViewHolder) {
+        viewHolder.titleTextView.text = title
+    }
+
     private fun setDataView(row: Int, column: Int, viewHolder: OrderViewHolder) {
         val dataInfo = ordersList[row - 1][column - 1]
         viewHolder.nameTextView.text = dataInfo.guestName
@@ -109,9 +112,10 @@ class ExcelPanelAdapter() : PanelAdapter() {
 
         if (dataInfo.status === DataInfo.Status.COMMON) {
             viewHolder.nameTextView.setTextColor(Color.parseColor("#000000"))
-
         } else if (dataInfo.status === DataInfo.Status.BLUE_TEXT) {
             viewHolder.nameTextView.setTextColor(Color.parseColor("#0000ff"))
+        } else if (dataInfo.status == DataInfo.Status.BLANK) {
+            viewHolder.nameTextView.text = ""
         }
     }
 

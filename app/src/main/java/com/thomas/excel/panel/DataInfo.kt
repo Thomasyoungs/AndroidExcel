@@ -1,4 +1,4 @@
-package com.thomas.excel.spanel
+package com.thomas.excel.panel
 
 import java.util.*
 
@@ -13,7 +13,7 @@ class DataInfo {
     var width: Int? = null
 
     enum class Status {
-        BLUE_TEXT, COMMON;
+        BLUE_TEXT, COMMON, BLANK;
 
         companion object {
             private val VALUES = Collections.unmodifiableList(listOf(*values()))

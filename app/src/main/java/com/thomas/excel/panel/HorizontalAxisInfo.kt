@@ -1,4 +1,4 @@
-package com.thomas.excel.spanel
+package com.thomas.excel.panel
 
 /**
  * created by yangzhikuan on 23-10-10 .
