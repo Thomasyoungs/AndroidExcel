@@ -1,4 +1,4 @@
-package com.thomas.excel.library
+package com.thomas.excel.library.equalwidth
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

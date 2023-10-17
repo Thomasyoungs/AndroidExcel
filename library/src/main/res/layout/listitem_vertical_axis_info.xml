@@ -8,16 +8,16 @@
 
     <TextView
         android:id="@+id/vertical_axis_type"
-        android:textSize="12sp"
-        android:textColor="@color/text_gray_666666"
+        android:textSize="13sp"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 
     <TextView
         android:id="@+id/vertical_name"
-        android:textSize="12sp"
-        android:textColor="@color/text_gray_666666"
+        android:textSize="14sp"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

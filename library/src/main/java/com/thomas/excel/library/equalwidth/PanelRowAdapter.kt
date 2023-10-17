@@ -1,4 +1,4 @@
-package com.thomas.excel.library
+package com.thomas.excel.library.equalwidth
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.thomas.excel.library.R
 
 /**
  *

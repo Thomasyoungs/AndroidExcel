@@ -1,13 +1,12 @@
-package com.thomas.excel.library
+package com.thomas.excel.library.equalwidth
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.thomas.excel.library.R
 import kotlinx.android.synthetic.main.view_scrollable_panel.view.*
 
 /**

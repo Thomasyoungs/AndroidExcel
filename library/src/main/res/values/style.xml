@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="text_row_title">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:background">@drawable/bg_item</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <style name="text_row_title_ring_weight">
+        <item name="android:layout_width">140dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:background">@drawable/bg_item</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <style name="text_row_title_time_weight">
+        <item name="android:layout_width">160dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:background">@drawable/bg_item</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+</resources>

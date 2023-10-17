@@ -5,10 +5,13 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.ContactsContract.Data
 import androidx.appcompat.app.AppCompatActivity
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import com.thomas.excel.library.equalwidth.DataInfo
+import com.thomas.excel.library.equalwidth.ExcelPanelAdapter
+import com.thomas.excel.library.equalwidth.HorizontalAxisInfo
+import com.thomas.excel.library.equalwidth.VerticalAxisInfo
 import kotlinx.android.synthetic.main.activity_common_excel_pannel.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -60,12 +63,11 @@ class SpecifyActivity : AppCompatActivity() {
 
     private var currentPage = 1
     private val PAGE_SIZE = 20
-    private val featherList = arrayOf("灰", "黑色", "黑白花", "黑点白")
     private fun generateTestData() {
         val horizontalAxisInfoList: MutableList<HorizontalAxisInfo> = ArrayList()
         for (j in 0..30) {
             val templates   ="abcdefghijklmnopgrstuvwxyz"
-            var identifier: String = templates[j % 26].toString()
+            var identifier: String = templates[j % 26].toString().uppercase()+"组"
             val horizontalAxisInfo = HorizontalAxisInfo()
             horizontalAxisInfo.date = identifier
             horizontalAxisInfo.width = dp2px(50)

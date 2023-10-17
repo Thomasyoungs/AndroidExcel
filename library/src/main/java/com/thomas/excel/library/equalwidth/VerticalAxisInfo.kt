@@ -1,4 +1,4 @@
-package com.thomas.excel.panel
+package com.thomas.excel.library.equalwidth
 
 /**
  * created by yangzhikuan on 23-10-10 .
