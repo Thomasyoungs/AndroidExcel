@@ -1,6 +1,8 @@
 package com.thomas.excel.panel
 
 import android.os.Bundle
+import android.provider.ContactsContract.Data
+import android.support.v4.app.INotificationSideChannel
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thomas.excel.library.fixedColumns.CotentData
@@ -61,7 +63,6 @@ class ScoreActivity : AppCompatActivity() {
                 "地区"
             )
         )
-
     }
 
     private fun setColumnTitle(contentData: CotentData) {
